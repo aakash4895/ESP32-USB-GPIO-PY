@@ -2,6 +2,8 @@
 
 A Python library for controlling ESP32 GPIO pins via USB serial communication. This library provides a simple and intuitive interface to interact with ESP32 GPIO pins remotely through USB connection.
 
+**Note**: This library requires compatible ESP32 firmware to be flashed on your ESP32 device. The corresponding ESP-IDF firmware code is available at: https://github.com/aakash4895/ESP32-USB-GPIO-ESPIDF
+
 ## Features
 
 - **GPIO Pin Control**: Configure, set, reset, and toggle GPIO pins
@@ -14,15 +16,25 @@ A Python library for controlling ESP32 GPIO pins via USB serial communication. T
 
 ## Installation
 
-```bash
-pip install pyserial
-```
-
-Clone this repository:
+### Option 1: Install from Source
+Clone this repository and install:
 ```bash
 git clone https://github.com/aakash4895/ESP32-USB-GPIO-PY.git
 cd ESP32-USB-GPIO-PY
+pip install .
 ```
+
+### Option 2: Development Installation
+For development, install in editable mode:
+```bash
+git clone https://github.com/aakash4895/ESP32-USB-GPIO-PY.git
+cd ESP32-USB-GPIO-PY
+pip install -e .
+```
+
+### Dependencies
+The package automatically installs its dependencies:
+- `pyserial`: For serial communication with ESP32
 
 ## Quick Start
 
@@ -48,6 +60,13 @@ gpio.toggle(pin=2)
 # Reset pin to low
 gpio.reset(pin=2)
 ```
+
+## Package Information
+
+- **Package Name**: ESP32 USB GPIO (Note: Currently named "ESP32 USB FPIO" in setup.py)
+- **Version**: 0.1.0
+- **Author**: Aakash Singh
+- **Python Compatibility**: Python 3.x
 
 ## Core Classes and Enums
 
@@ -171,8 +190,34 @@ The library uses a background thread for serial communication, making it safe to
 ## Hardware Requirements
 
 - ESP32 development board with USB connection
-- Compatible ESP32 firmware that implements the GPIO command protocol
+- **ESP32 Firmware**: Compatible ESP32 firmware that implements the GPIO command protocol
+  - **Required**: Flash the ESP-IDF firmware from https://github.com/aakash4895/ESP32-USB-GPIO-ESPIDF
+  - This firmware handles the serial communication protocol and GPIO operations
 - USB cable for connection to host computer
+
+## Setup Instructions
+
+1. **Flash ESP32 Firmware**:
+   ```bash
+   git clone https://github.com/aakash4895/ESP32-USB-GPIO-ESPIDF.git
+   cd ESP32-USB-GPIO-ESPIDF
+   # Follow the ESP-IDF setup and flashing instructions in that repository
+   ```
+
+2. **Install Python Library**:
+   ```bash
+   git clone https://github.com/aakash4895/ESP32-USB-GPIO-PY.git
+   cd ESP32-USB-GPIO-PY
+   pip install .
+   ```
+
+3. **Connect and Test**:
+   ```python
+   from esp32_usb_gpio.core import ESP32USBGPIO, GPIOPinMode
+   gpio = ESP32USBGPIO('/dev/ttyUSB0')  # Your ESP32 port
+   gpio.setup(pin=2, mode=GPIOPinMode.OUTPUT)
+   gpio.set(pin=2)
+   ```
 
 ## Supported Platforms
 
