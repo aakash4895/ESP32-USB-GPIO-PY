@@ -16,7 +16,12 @@ A Python library for controlling ESP32 GPIO pins via USB serial communication. T
 
 ## Installation
 
-### Option 1: Install from Source
+### Option 1: Install from PyPI (Recommended)
+```bash
+pip install esp32-usb-gpio
+```
+
+### Option 2: Install from Source
 Clone this repository and install:
 ```bash
 git clone https://github.com/aakash4895/ESP32-USB-GPIO-PY.git
@@ -24,7 +29,7 @@ cd ESP32-USB-GPIO-PY
 pip install .
 ```
 
-### Option 2: Development Installation
+### Option 3: Development Installation
 For development, install in editable mode:
 ```bash
 git clone https://github.com/aakash4895/ESP32-USB-GPIO-PY.git
