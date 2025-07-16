@@ -44,7 +44,7 @@ The package automatically installs its dependencies:
 ## Quick Start
 
 ```python
-from esp32_usb_gpio.core import ESP32USBGPIO, GPIOPinMode, GPIOPinState
+from esp32_usb_gpio import ESP32USBGPIO, GPIOPinMode, GPIOPinState
 
 # Initialize connection to ESP32
 gpio = ESP32USBGPIO('/dev/ttyUSB0')  # Replace with your port
@@ -69,7 +69,7 @@ gpio.reset(pin=2)
 ## Package Information
 
 - **Package Name**: esp32-usb-gpio
-- **Version**: 0.1.0
+- **Version**: 0.1.1
 - **Author**: Aakash Singh
 - **License**: GPL-3.0
 - **Python Compatibility**: Python 3.7+
@@ -219,7 +219,7 @@ The library uses a background thread for serial communication, making it safe to
 
 3. **Connect and Test**:
    ```python
-   from esp32_usb_gpio.core import ESP32USBGPIO, GPIOPinMode
+   from esp32_usb_gpio import ESP32USBGPIO, GPIOPinMode
    gpio = ESP32USBGPIO('/dev/ttyUSB0')  # Your ESP32 port
    gpio.setup(pin=2, mode=GPIOPinMode.OUTPUT)
    gpio.set(pin=2)

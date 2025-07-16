@@ -1,2 +1,2 @@
 include README.md
-recursive-include esp32_usb_gpio *.py
+include esp32_usb_gpio.py
