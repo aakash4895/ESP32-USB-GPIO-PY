@@ -63,10 +63,11 @@ gpio.reset(pin=2)
 
 ## Package Information
 
-- **Package Name**: ESP32 USB GPIO (Note: Currently named "ESP32 USB FPIO" in setup.py)
+- **Package Name**: esp32-usb-gpio
 - **Version**: 0.1.0
 - **Author**: Aakash Singh
-- **Python Compatibility**: Python 3.x
+- **License**: GPL-3.0
+- **Python Compatibility**: Python 3.7+
 
 ## Core Classes and Enums
 
