@@ -2,6 +2,7 @@ from serial import Serial
 from enum import IntEnum, StrEnum
 import threading
 from dataclasses import dataclass
+import time
 
 
 class GPIOPinMode(IntEnum):
@@ -75,6 +76,7 @@ class ESP32USBGPIO:
 
     def _read_serial(self):
         while True:
+            time.sleep(0.1)  # Adjust sleep time as needed
             try:
                 if self.serial.in_waiting > 0:
                     data = self.serial.readline().decode().strip()
@@ -99,9 +101,17 @@ class ESP32USBGPIO:
 
     def _sendCommand(self, cmd: str):
         self.responseRecv = False
+        self._gpioPinState = self.gpioPinState()  # Reset pin state
         self.serial.write(cmd.encode())
         while not self.responseRecv:
-            pass
+            time.sleep(0.01)
+
+    def hardReset(self):
+        # Toggle DTR to trigger a hardware reset on the ESP32
+        self.serial.setDTR(False)  # Set DTR low
+        time.sleep(0.1)            # Short delay
+        self.serial.setDTR(True)   # Set DTR high again
+        time.sleep(0.5)            # Wait for ESP32 to boot
 
     def setup(self, pin:int, mode:GPIOPinMode, pull_up:GPIOPinPullUp=GPIOPinPullUp.DISABLE, pull_down:GPIOPinPullDown=GPIOPinPullDown.DISABLE, intr:GPIOPinIntr=GPIOPinIntr.DISABLE):
         self._sendCommand(f"{GPIOCmd.GPIO_SETUP};{pin};{mode};{pull_up};{pull_down};{intr}")
