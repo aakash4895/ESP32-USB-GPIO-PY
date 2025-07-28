@@ -76,7 +76,7 @@ class ESP32USBGPIO:
 
     def _read_serial(self):
         while True:
-            time.sleep(0.1)  # Adjust sleep time as needed
+            time.sleep(0.01)  # Adjust sleep time as needed
             try:
                 if self.serial.in_waiting > 0:
                     data = self.serial.readline().decode().strip()
