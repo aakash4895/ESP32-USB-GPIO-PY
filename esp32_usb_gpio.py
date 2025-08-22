@@ -76,7 +76,7 @@ class ESP32USBGPIO:
 
     def _read_serial(self):
         while True:
-            time.sleep(0.01)  # Adjust sleep time as needed
+            time.sleep(0.001)  # Adjust sleep time as needed
             try:
                 if self.serial.in_waiting > 0:
                     data = self.serial.readline().decode().strip()
@@ -96,8 +96,8 @@ class ESP32USBGPIO:
 
                     if data[0] is not GPIOCmdResponse.GPIO_IN:
                         self.responseRecv = True
-            except Exception as e:
-                print(f"Error reading serial data: {e}")
+            except Exception:
+                pass
 
     def _sendCommand(self, cmd: str):
         self.responseRecv = False
