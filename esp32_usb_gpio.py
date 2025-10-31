@@ -64,6 +64,7 @@ class ESP32USBGPIO:
 
     _gpioPortState: gpioPortState = gpioPortState()
     _gpioPinState: gpioPinState = gpioPinState()
+    __exitFlag__ = False
 
     responseRecv = False
 
@@ -74,8 +75,14 @@ class ESP32USBGPIO:
         self.serialThread = threading.Thread(target=self._read_serial, daemon=True)
         self.serialThread.start()
 
+    def close(self):
+        self.__exitFlag__ = True
+        if self.serial:
+            self.serial.close()
+        
+
     def _read_serial(self):
-        while True:
+        while self.__exitFlag__ is False:
             time.sleep(0.001)  # Adjust sleep time as needed
             try:
                 if self.serial.in_waiting > 0:
